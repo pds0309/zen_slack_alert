@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/pds0309/zen_slack_alert/issues"
   },
-  "homepage": "https://github.com/pds0309/zen_slack_alert#readme"
+  "homepage": "https://github.com/pds0309/zen_slack_alert#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
 }
