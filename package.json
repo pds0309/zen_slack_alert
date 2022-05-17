@@ -1,0 +1,19 @@
+{
+  "name": "zen_slack_alert",
+  "version": "1.0.0",
+  "description": "Aws Lambda + Zenhub + Slack web hook 을 연동한 이슈 이동 알림 서비스",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pds0309/zen_slack_alert.git"
+  },
+  "author": "pds",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pds0309/zen_slack_alert/issues"
+  },
+  "homepage": "https://github.com/pds0309/zen_slack_alert#readme"
+}
