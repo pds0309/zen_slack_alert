@@ -1,0 +1,14 @@
+- ISSUE TRANSFER FORMAT -
+{
+  "type": "issue_transfer",
+  "github_url": "https://github.com/ZenHubIO/support/issues/618",
+  "organization": "ZenHubHQ",
+  "repo": "support",
+  "user_name": "ZenHubIO",
+  "issue_number": "618",
+  "issue_title": "ZenHub Change Log",
+  "to_pipeline_name": "New Issues",
+  "workspace_id": "603fc3e575de63001cc163f9",
+  "workspace_name": "My Workspace",
+  "from_pipeline_name": "Discussion"
+}
