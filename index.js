@@ -26,33 +26,27 @@ const repoMap = repoArray.reduce(
   {}
 );
 
-/*
-- ISSUE TRANSFER FORMAT -
-{
-  "type": "issue_transfer",
-  "github_url": "https://github.com/ZenHubIO/support/issues/618",
-  "organization": "ZenHubHQ",
-  "repo": "support",
-  "user_name": "ZenHubIO",
-  "issue_number": "618",
-  "issue_title": "ZenHub Change Log",
-  "to_pipeline_name": "New Issues",
-  "workspace_id": "603fc3e575de63001cc163f9",
-  "workspace_name": "My Workspace",
-  "from_pipeline_name": "Discussion"
-}
-*/
-
 const getIssueInfo = (data) => {
   return `<${baseUrl}/${data.organization}/${data.repo}/issues/${data.issue_number}|#${data.issue_number} ${data.issue_title}>`;
 };
 
-const issueMessages = (data) =>
-  `${repoMap[data.repo]}: <${data.user_name}> :  ${getIssueInfo(
-    data
-  )} ISSUE의 상태를  ${
-    pipelinesMap[data.to_pipeline_name] || ""
-  } 로 변경했어요!`.trim();
+const issueMessages = (data) => {
+  return [
+    {
+      pretext: "[Zenhub 알림]",
+      color: "#FF00FF",
+      fields: [
+        {
+          title: `${repoMap[data.repo]} '${data.user_name}' 님의 `,
+          value: `${getIssueInfo(data)} ISSUE 에 대한 ${
+            pipelinesMap[data.to_pipeline_name]
+          }`,
+          short: false,
+        },
+      ],
+    },
+  ];
+};
 
 const base64decode = (base64text) => {
   return Buffer.from(base64text, "base64").toString("utf8");
@@ -74,11 +68,13 @@ exports.handler = (event, _, callback) => {
     callback("이벤트 경로 정보를 찾을 수 없습니다.");
   }
   const data = getURLSearchParamsToJSON(base64decode(event.body));
-  const text = issueMessages(data);
+  const attachments = issueMessages(data);
 
   if (data.type && data.type === permitEvent) {
     if (alertPipelineArray.includes(data.to_pipeline_name)) {
-      axios.post(WEBHOOK_URL, { text, link_names: 1 }).catch(console.log);
+      axios
+        .post(WEBHOOK_URL, { attachments, link_names: 1 })
+        .catch(console.log);
     }
   }
   callback(null, {
