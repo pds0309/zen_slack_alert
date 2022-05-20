@@ -1,5 +1,7 @@
 const axios = require("axios");
 
+import checkPullRequest from "./checkPullRequest";
+
 // 필수입니다.
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 const ALERT_PIPELINES = process.env.ALERT_PIPELINES;
@@ -76,7 +78,11 @@ exports.handler = (event, _, callback) => {
   const data = getURLSearchParamsToJSON(base64decode(event.body));
   const attachments = issueMessages(data);
 
-  if (data.type && data.type === permitEvent) {
+  if (
+    data.type &&
+    data.type === permitEvent &&
+    checkPullRequest(data.github_url)
+  ) {
     if (alertPipelineArray.includes(data.to_pipeline_name)) {
       axios
         .post(WEBHOOK_URL, { attachments, link_names: 1 })
