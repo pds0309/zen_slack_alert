@@ -10,6 +10,7 @@ const ALERT_PIPELINES_ALIAS = process.env.ALERT_PIPELINES_ALIAS
 // 한 워크스페이스에서 여러 저장소를 사용할 때 옵션
 const REPO = process.env.REPO;
 const REPO_ALIAS = process.env.REPO_ALIAS ? process.env.REPO_ALIAS : "";
+const REPO_COLORS = process.env.REPO_COLORS;
 
 const baseUrl = "https://app.zenhub.com/workspace/o";
 const permitEvent = "issue_transfer";
@@ -17,11 +18,16 @@ const stringToArray = (str) => (str || "").split(",").map((t) => t.trim());
 
 const alertPipelineArray = stringToArray(ALERT_PIPELINES);
 const repoArray = stringToArray(REPO);
+
 const pipelinesMap = alertPipelineArray.reduce(
   (o, k, i) => ({ ...o, [k]: stringToArray(ALERT_PIPELINES_ALIAS)[i] }),
   {}
 );
 const repoMap = repoArray.reduce(
+  (o, k, i) => ({ ...o, [k]: stringToArray(REPO_ALIAS)[i] }),
+  {}
+);
+const repoColorMap = repoArray.reduce(
   (o, k, i) => ({ ...o, [k]: stringToArray(REPO_ALIAS)[i] }),
   {}
 );
@@ -33,11 +39,11 @@ const getIssueInfo = (data) => {
 const issueMessages = (data) => {
   return [
     {
-      pretext: "[Zenhub 알림]",
-      color: "#FF00FF",
+      text: "[Zenhub 알림]",
+      color: repoColorMap[data.repo] || "#FF00FF",
       fields: [
         {
-          title: `${repoMap[data.repo]} '${data.user_name}' 님의 `,
+          title: `${repoMap[data.repo] || ""} '${data.user_name}' 님의 `,
           value: `${getIssueInfo(data)} ISSUE 에 대한 ${
             pipelinesMap[data.to_pipeline_name]
           }`,
