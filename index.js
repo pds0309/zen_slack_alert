@@ -67,6 +67,22 @@ const getURLSearchParamsToJSON = (string) => {
   return object;
 };
 
+const checkPullRequest = (github_url) => {
+  return axios
+    .head(github_url, {
+      maxRedirects: 0,
+      validateStatus: function (status) {
+        return status >= 200 && status <= 302;
+      },
+    })
+    .then((response) => {
+      return response.status === 302 ? true : false;
+    })
+    .catch((error) => {
+      return false;
+    });
+};
+
 exports.handler = (event, _, callback) => {
   if (!event.body) {
     callback("이벤트 경로 정보를 찾을 수 없습니다.");
