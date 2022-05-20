@@ -1,7 +1,5 @@
 const axios = require("axios");
 
-import checkPullRequest from "./checkPullRequest";
-
 // 필수입니다.
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 const ALERT_PIPELINES = process.env.ALERT_PIPELINES;
