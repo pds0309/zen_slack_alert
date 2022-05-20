@@ -14,7 +14,7 @@ const REPO = process.env.REPO;
 const REPO_ALIAS = process.env.REPO_ALIAS ? process.env.REPO_ALIAS : "";
 const REPO_COLORS = process.env.REPO_COLORS;
 
-const baseUrl = "https://app.zenhub.com/workspace/o";
+// const baseUrl = "https://app.zenhub.com/workspace/o";
 const permitEvent = "issue_transfer";
 const stringToArray = (str) => (str || "").split(",").map((t) => t.trim());
 
@@ -34,10 +34,6 @@ const repoColorMap = repoArray.reduce(
   {}
 );
 
-const getIssueInfo = (data) => {
-  return `<${baseUrl}/${data.organization}/${data.repo}/issues/${data.issue_number}|#${data.issue_number} ${data.issue_title}>`;
-};
-
 const issueMessages = (data) => {
   return [
     {
@@ -46,7 +42,7 @@ const issueMessages = (data) => {
       fields: [
         {
           title: `${repoMap[data.repo] || ""} '${data.user_name}' 님의 `,
-          value: `${getIssueInfo(data)} ISSUE 에 대한 ${
+          value: `${data.github_url} ISSUE 에 대한 ${
             pipelinesMap[data.to_pipeline_name]
           }`,
           short: false,
