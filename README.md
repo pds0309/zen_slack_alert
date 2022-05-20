@@ -56,6 +56,12 @@
 
 <br>
 
+## 개선 사항 로그
+
+-[22/05/21 - Issue에 묶인 Pull-Request는 알림 대상에서 지우기](https://github.com/pds0309/zen_slack_alert/wiki/%EB%AC%B6%EC%9D%B8-Pull-Request%EB%8F%84-%EA%B0%99%EC%9D%B4-%EC%95%8C%EB%A6%BC%EC%9D%B4-%EA%B0%80%EC%84%9C-%EC%A7%80%EC%A0%80%EB%B6%84%ED%95%9C-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0%ED%95%B4%EB%B3%B4%EA%B8%B0)
+
+<br>
+
 ## References
 
 - [zenhub](https://www.zenhub.com/)
