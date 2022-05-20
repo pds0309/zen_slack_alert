@@ -28,7 +28,7 @@ const repoMap = repoArray.reduce(
   {}
 );
 const repoColorMap = repoArray.reduce(
-  (o, k, i) => ({ ...o, [k]: stringToArray(REPO_ALIAS)[i] }),
+  (o, k, i) => ({ ...o, [k]: stringToArray(REPO_COLORS || "#FF00FF")[i] }),
   {}
 );
 
