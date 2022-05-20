@@ -83,18 +83,14 @@ const checkPullRequest = (github_url) => {
     });
 };
 
-exports.handler = (event, _, callback) => {
+exports.handler = async (event, _, callback) => {
   if (!event.body) {
     callback("이벤트 경로 정보를 찾을 수 없습니다.");
   }
   const data = getURLSearchParamsToJSON(base64decode(event.body));
   const attachments = issueMessages(data);
-
-  if (
-    data.type &&
-    data.type === permitEvent &&
-    checkPullRequest(data.github_url)
-  ) {
+  const isPullRequest = await checkPullRequest(data.github_url);
+  if (data.type && data.type === permitEvent && !isPullRequest) {
     if (alertPipelineArray.includes(data.to_pipeline_name)) {
       axios
         .post(WEBHOOK_URL, { attachments, link_names: 1 })
