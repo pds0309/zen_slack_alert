@@ -35,8 +35,7 @@ const repoColorMap = repoArray.reduce(
 const issueMessages = (data) => {
   return [
     {
-      text: "[알림]",
-      subText: data.issue_title,
+      text: "[알림] " + data.issue_title,
       color: repoColorMap[data.repo] || "#FF00FF",
       fields: [
         {
